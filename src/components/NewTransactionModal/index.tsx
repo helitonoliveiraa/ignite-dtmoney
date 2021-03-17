@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import Modal from 'react-modal';
 
 import arrowUpImg from '../../assets/arrow-up.svg';
@@ -6,7 +6,7 @@ import arrowDownImg from '../../assets/arrow-down.svg';
 import closeImg from '../../assets/close.svg';
 
 import * as S from './styles';
-import { api } from '../../services/api';
+import { TransactionsContext } from '../../context';
 
 type NewTransactionModalProps = {
   onCloseNewTransactionModal: () => void;
@@ -23,19 +23,26 @@ export function NewTransactionModal({
   const [value, setValue] = useState(0);
   const [category, setCategory] = useState('');
 
+  const { createTransaction } = useContext(TransactionsContext);
+
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
-    const data = {
+    await createTransaction({
       title,
       amount: value,
       type,
       category,
-    };
+    });
 
-    await api.post('/transactions', data);
+    setTitle('');
+    setValue(0);
+    setCategory('');
+    setType('income');
 
-    console.log('Depósito realizado!');
+    onCloseNewTransactionModal();
+
+
   }
 
   return (
