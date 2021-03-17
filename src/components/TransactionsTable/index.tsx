@@ -1,6 +1,11 @@
+import { useContext } from 'react';
+import { TransactionsContext } from '../../context';
+
 import * as S from './styles';
 
 export function TransactionsTable() {
+  const { transactions } = useContext(TransactionsContext);
+
   return (
     <S.Container>
       <table>
@@ -14,26 +19,17 @@ export function TransactionsTable() {
         </thead>
 
         <tbody>
-          <tr>
-            <td>Desenvolvimento de site</td>
-            <td className="income">R$ 12.509,00</td>
-            <td>Venda</td>
-            <td>14/04/2021</td>
-          </tr>
-
-          <tr>
-            <td>Desenvolvimento de site</td>
-            <td className="income">R$ 12.509,00</td>
-            <td>Venda</td>
-            <td>14/04/2021</td>
-          </tr>
-
-          <tr>
-            <td>Desenvolvimento de site</td>
-            <td className="outcome"> - R$ 12.509,00</td>
-            <td>Venda</td>
-            <td>14/04/2021</td>
-          </tr>
+          {transactions.map(transaction => (
+            <tr key={transaction.id}>
+              <td>{transaction.title}</td>
+              <td className={transaction.type}>
+                {transaction.type === 'outcome' && '- '}
+                {transaction.amountFormatted}
+              </td>
+              <td>{transaction.category}</td>
+              <td>{transaction.dateFormatted}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </S.Container>
