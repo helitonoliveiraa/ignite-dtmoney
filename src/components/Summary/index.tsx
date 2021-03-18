@@ -2,14 +2,13 @@ import arrowUpImg from '../../assets/arrow-up.svg';
 import arrowDownImg from '../../assets/arrow-down.svg';
 import totalImg from '../../assets/total.svg';
 
-import { useContext } from 'react';
-import { TransactionsContext } from '../../context';
+import { formatValue } from '../../utils/format';
+import { useTransactions } from '../../hooks/useTransactions';
 
 import * as S from './styles';
-import { formatValue } from '../../utils/format';
 
 export function Summary() {
-  const { transactions } = useContext(TransactionsContext);
+  const { transactions } = useTransactions();
 
   const { income, outcome, total } = transactions.reduce((accumulator, transaction) => {
     if (transaction.type === "income") {

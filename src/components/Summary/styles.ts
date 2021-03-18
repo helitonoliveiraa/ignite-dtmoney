@@ -12,7 +12,6 @@ export const Card = styled.div`
   border-radius: 0.5rem;
   background: var(--shape-principal);
 
-  z-index: 5;
   margin-top: -11rem;
 
   header {
