@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { darken, lighten, transparentize } from 'polished';
+import { darken, transparentize } from 'polished';
 
 interface RadioBoxProps {
   isActive: boolean;
